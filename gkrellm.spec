@@ -102,7 +102,6 @@ EOF
 install -d -m 755 %{buildroot}%{_datadir}/applications
 cat >  %{buildroot}%{_datadir}/applications/mandriva-%{name}.desktop << EOF
 [Desktop Entry]
-Encoding=UTF-8
 Name=%{title}
 Comment=%{longtitle}
 Exec=%{_bindir}/%{name}
