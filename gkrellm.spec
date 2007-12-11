@@ -1,5 +1,5 @@
 %define name    gkrellm
-%define version 2.3.0
+%define version 2.3.1
 %define release %mkrel 1
 %define title       Gkrellm
 %define longtitle   A GTK-based monitoring app
@@ -8,7 +8,7 @@ Name:           %{name}
 Version:        %{version}
 Release:        %{release}
 Summary:        Multiple stacked system monitors
-License:        GPL
+License:        GPLv3+
 Group:          Monitoring
 URL:            http://gkrellm.net
 Source0:        http://members.dslextreme.com/users/billw/gkrellm/%{name}-%{version}.tar.bz2
@@ -86,19 +86,6 @@ convert src/icon.xpm -geometry 16x16 %{buildroot}%{_miconsdir}/%{name}.png
 mkdir -p %{buildroot}%{_datadir}/%{name}2/themes
 cp -av gkrellm-themes/* %{buildroot}%{_datadir}/%{name}2/themes
 
-mkdir -p %{buildroot}%{_menudir}
-cat > %{buildroot}%{_menudir}/gkrellm <<EOF
-?package(gkrellm): \
-    command="%{_bindir}/gkrellm" \
-    needs="x11" \
-    section="System/Monitoring" \
-    icon="%{name}.png" \
-    startup_notify="true" \
-    title="%{title}" \
-    longtitle="%{longtitle}" \
-    xdg="true" 
-EOF
-
 install -d -m 755 %{buildroot}%{_datadir}/applications
 cat >  %{buildroot}%{_datadir}/applications/mandriva-%{name}.desktop << EOF
 [Desktop Entry]
@@ -109,7 +96,7 @@ Icon=%{name}
 Terminal=false
 Type=Application
 StartupNotify=true
-Categories=GTK;X-MandrivaLinux-System-Monitoring;System;Monitor;
+Categories=GTK;System;Monitor;
 EOF
 
 install -d -m 755 %{buildroot}%{_sysconfdir}
@@ -146,7 +133,6 @@ rm -rf %{buildroot}
 %doc COPYRIGHT Changelog INSTALL README *.html
 %config(noreplace) %{_sysconfdir}/bash_completion.d/%{name}
 %{_bindir}/gkrellm
-%{_menudir}/*
 %{_datadir}/applications/mandriva-%{name}.desktop
 %{_iconsdir}/gkrellm.png
 %{_liconsdir}/gkrellm.png
