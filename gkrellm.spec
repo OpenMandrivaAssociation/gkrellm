@@ -20,6 +20,7 @@ BuildRequires:  gtk+2-devel
 BuildRequires:  ImageMagick
 BuildRequires:  openssl-devel
 BuildRequires:  libsm-devel
+BuildRoot:      %{_tmppath}/%{name}-%{version}
 
 %description
 GKrellM charts SMP CPU, load, Disk, and all active net interfaces
