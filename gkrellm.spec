@@ -1,5 +1,5 @@
 %define name    gkrellm
-%define version 2.3.1
+%define version 2.3.2
 %define release %mkrel 1
 %define title       Gkrellm
 %define longtitle   A GTK-based monitoring app
