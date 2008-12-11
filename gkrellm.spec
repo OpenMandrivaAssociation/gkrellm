@@ -17,7 +17,7 @@ Source5:        gkrellmd.init.bz2
 Source6:        %{name}.bash-completion.bz2
 BuildRequires:  gettext
 BuildRequires:  gtk+2-devel
-BuildRequires:  ImageMagick
+BuildRequires:  imagemagick
 BuildRequires:  openssl-devel
 BuildRequires:  libsm-devel
 BuildRoot:      %{_tmppath}/%{name}-%{version}
