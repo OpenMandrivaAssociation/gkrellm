@@ -1,6 +1,6 @@
 %define name    gkrellm
 %define version 2.3.2
-%define release %mkrel 1
+%define release %mkrel 2
 %define title       Gkrellm
 %define longtitle   A GTK-based monitoring app
 
@@ -14,7 +14,6 @@ URL:            http://gkrellm.net
 Source0:        http://members.dslextreme.com/users/billw/gkrellm/%{name}-%{version}.tar.bz2
 Source4:        gkrellm-themes.tar.bz2
 Source5:        gkrellmd.init.bz2
-Source6:        %{name}.bash-completion.bz2
 BuildRequires:  gettext
 BuildRequires:  gtk+2-devel
 BuildRequires:  imagemagick
@@ -105,9 +104,6 @@ install -m 644 server/gkrellmd.conf %{buildroot}%{_sysconfdir}
 install -d -m 755 %{buildroot}%{_initrddir}
 install -m 755 %{name}.init %{buildroot}%{_initrddir}/gkrellmd
 
-install -d -m 755 %{buildroot}%{_sysconfdir}/bash_completion.d
-install -m 644 %{name}.bash-completion %{buildroot}%{_sysconfdir}/bash_completion.d/%{name}
-
 %multiarch_includes %{buildroot}%{_includedir}/gkrellm2/gkrellm.h
 %multiarch_includes %{buildroot}%{_includedir}/gkrellm2/gkrellmd.h
 
@@ -135,7 +131,6 @@ rm -rf %{buildroot}
 %files -f %{name}.lang
 %defattr(-,root,root)
 %doc COPYRIGHT Changelog INSTALL README *.html
-%config(noreplace) %{_sysconfdir}/bash_completion.d/%{name}
 %{_bindir}/gkrellm
 %{_datadir}/applications/mandriva-%{name}.desktop
 %{_iconsdir}/gkrellm.png
