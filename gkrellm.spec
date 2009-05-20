@@ -14,6 +14,7 @@ URL:            http://gkrellm.net
 Source0:        http://members.dslextreme.com/users/billw/gkrellm/%{name}-%{version}.tar.bz2
 Source4:        gkrellm-themes.tar.bz2
 Source5:        gkrellmd.init.bz2
+Patch0:		gkrellm-2.3.2-wformat.patch
 BuildRequires:  gettext
 BuildRequires:  gtk+2-devel
 BuildRequires:  imagemagick
@@ -55,13 +56,13 @@ a client running gkrellm, without installing gkrellm on the server.
 %setup -q
 %setup -q -D -T -a4
 bzcat %{SOURCE5} > %{name}.init
-bzcat %{SOURCE6} > %{name}.bash-completion
 for i in `find -type d -name .xvpics`
     do rm -rf $i
 done
 # make it lib64 aware
 perl -pi -e "/PLUGINS_DIR/ and s|/lib/|/%{_lib}/|g" ./src/gkrellm.h
 perl -pi -e "s|/lib/|/%{_lib}/|" Makefile
+%patch0 -p1 -b .wformat
 
 %build
 %make CFLAGS="$RPM_OPT_FLAGS" \
