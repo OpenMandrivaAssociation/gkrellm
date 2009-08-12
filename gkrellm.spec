@@ -15,6 +15,7 @@ Source0:        http://members.dslextreme.com/users/billw/gkrellm/%{name}-%{vers
 Source4:        gkrellm-themes.tar.bz2
 Source5:        gkrellmd.init.bz2
 Patch0:		gkrellm-2.3.2-wformat.patch
+Patch1:		gkrellm-2.3.2-rename-getline.patch
 BuildRequires:  gettext
 BuildRequires:  gtk+2-devel
 BuildRequires:  imagemagick
@@ -63,6 +64,7 @@ done
 perl -pi -e "/PLUGINS_DIR/ and s|/lib/|/%{_lib}/|g" ./src/gkrellm.h
 perl -pi -e "s|/lib/|/%{_lib}/|" Makefile
 %patch0 -p1 -b .wformat
+%patch1 -p1 -b .getline
 
 %build
 %make CFLAGS="$RPM_OPT_FLAGS" \
