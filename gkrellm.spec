@@ -1,6 +1,6 @@
-%define name    gkrellm
-%define version 2.3.4
-%define release %mkrel 1
+%define name        gkrellm
+%define version     2.3.4
+%define release     %mkrel 2
 %define title       Gkrellm
 %define longtitle   A GTK-based monitoring app
 
@@ -72,9 +72,12 @@ perl -pi -e "s|/lib/|/%{_lib}/|" Makefile
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/%{_bindir}
-make install INSTALLROOT=%{buildroot}%{_prefix} INSTALLDIR=%{buildroot}/%{_bindir} \
-  INCLUDEDIR=%{buildroot}%{_includedir} MANDIR=%{buildroot}%{_mandir}/man1 \
-  LOCALEDIR=%{buildroot}%{_datadir}/locale
+make install \
+    INSTALLROOT=%{buildroot}%{_prefix} \
+    INSTALLDIR=%{buildroot}/%{_bindir} \
+    INCLUDEDIR=%{buildroot}%{_includedir} \
+    MANDIR=%{buildroot}%{_mandir}/man1 \
+    LOCALEDIR=%{buildroot}%{_datadir}/locale
 
 mkdir -p %{buildroot}%{_libdir}/%{name}2/plugins
 
@@ -110,6 +113,10 @@ install -m 755 %{name}.init %{buildroot}%{_initrddir}/gkrellmd
 
 %{find_lang} %{name}
 
+# lock dir
+install -d -m 755 %{buildroot}%{_localstatedir}/lock/gkrellm
+chmod 1777 %{buildroot}%{_localstatedir}/lock/gkrellm
+
 %clean
 rm -rf %{buildroot}
 
@@ -140,6 +147,7 @@ rm -rf %{buildroot}
 %{_mandir}/man1/gkrellm.1*
 %{_libdir}/gkrellm2
 %{_datadir}/gkrellm2
+%{_localstatedir}/lock/gkrellm
 
 %files devel
 %defattr(-,root,root)
