@@ -1,6 +1,6 @@
 %define name        gkrellm
 %define version     2.3.4
-%define release     %mkrel 7
+%define release     %mkrel 8
 %define title       Gkrellm
 %define longtitle   A GTK-based monitoring app
 
@@ -81,7 +81,8 @@ make install \
     INSTALLDIR=%{buildroot}/%{_bindir} \
     INCLUDEDIR=%{buildroot}%{_includedir} \
     MANDIR=%{buildroot}%{_mandir}/man1 \
-    LOCALEDIR=%{buildroot}%{_datadir}/locale
+    LOCALEDIR=%{buildroot}%{_datadir}/locale \
+    STRIP=""
 
 mkdir -p %{buildroot}%{_libdir}/%{name}2/plugins
 
