@@ -1,6 +1,6 @@
 %define name        gkrellm
 %define version     2.3.4
-%define release     %mkrel 6
+%define release     %mkrel 7
 %define title       Gkrellm
 %define longtitle   A GTK-based monitoring app
 
@@ -13,7 +13,7 @@ Group:          Monitoring
 URL:            http://gkrellm.net
 Source0:        http://members.dslextreme.com/users/billw/gkrellm/%{name}-%{version}.tar.bz2
 Source4:        gkrellm-themes.tar.bz2
-Source5:        gkrellmd.init.bz2
+Source5:        gkrellmd.init
 Patch0:		gkrellm-2.3.2-wformat.patch
 Patch1:		gkrellm-2.3.4-fix-link.patch
 BuildRequires:  gettext
@@ -21,6 +21,7 @@ BuildRequires:  gtk+2-devel
 BuildRequires:  imagemagick
 BuildRequires:  openssl-devel
 BuildRequires:  libsm-devel
+BuildRequires:	libntlm-devel
 BuildRoot:      %{_tmppath}/%{name}-%{version}
 
 %description
@@ -56,20 +57,20 @@ a client running gkrellm, without installing gkrellm on the server.
 %prep
 %setup -q
 %setup -q -D -T -a4
-bzcat %{SOURCE5} > %{name}.init
 for i in `find -type d -name .xvpics`
     do rm -rf $i
 done
 # make it lib64 aware
-perl -pi -e "/PLUGINS_DIR/ and s|/lib/|/%{_lib}/|g" ./src/gkrellm.h
+perl -pi -e "/PLUGINS_DIR/ and s|/lib/|/%{_lib}/|g" ./src/gkrellm.h ./server/gkrellmd.h
 perl -pi -e "s|/lib/|/%{_lib}/|" Makefile
 %patch0 -p1 -b .wformat
 %patch1 -p0 -b .link
 
 %build
-%make CFLAGS="%optflags" \
+%make INSTALLROOT=%{_prefix} \
+      INCLUDEDIR=%{_includedir} \
+      CFLAGS="%optflags" \
       LINK_FLAGS="%ldflags" \
-      SMC_LIBS="-L%{_libdir} -lSM -lICE" \
       LOCALEDIR=%{_datadir}/locale
 
 %install
@@ -109,7 +110,7 @@ install -d -m 755 %{buildroot}%{_sysconfdir}
 install -m 644 server/gkrellmd.conf %{buildroot}%{_sysconfdir}
 
 install -d -m 755 %{buildroot}%{_initrddir}
-install -m 755 %{name}.init %{buildroot}%{_initrddir}/gkrellmd
+install -m 755 %{SOURCE5} %{buildroot}%{_initrddir}/gkrellmd
 
 %multiarch_includes %{buildroot}%{_includedir}/gkrellm2/gkrellm.h
 %multiarch_includes %{buildroot}%{_includedir}/gkrellm2/gkrellmd.h
