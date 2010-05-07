@@ -1,6 +1,6 @@
 %define name        gkrellm
 %define version     2.3.4
-%define release     %mkrel 8
+%define release     %mkrel 9
 %define title       Gkrellm
 %define longtitle   A GTK-based monitoring app
 
@@ -70,7 +70,7 @@ perl -pi -e "s|/lib/|/%{_lib}/|" Makefile
 %make INSTALLROOT=%{_prefix} \
       INCLUDEDIR=%{_includedir} \
       CFLAGS="%optflags" \
-      LINK_FLAGS="%ldflags" \
+      LINK_FLAGS="%ldflags -Wl,-E" \
       LOCALEDIR=%{_datadir}/locale
 
 %install
