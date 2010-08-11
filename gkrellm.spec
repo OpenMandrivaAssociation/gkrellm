@@ -1,6 +1,6 @@
 %define name        gkrellm
 %define version     2.3.4
-%define release     %mkrel 9
+%define release     %mkrel 10
 %define title       Gkrellm
 %define longtitle   A GTK-based monitoring app
 
@@ -14,14 +14,16 @@ URL:            http://gkrellm.net
 Source0:        http://members.dslextreme.com/users/billw/gkrellm/%{name}-%{version}.tar.bz2
 Source4:        gkrellm-themes.tar.bz2
 Source5:        gkrellmd.init
-Patch0:		gkrellm-2.3.2-wformat.patch
-Patch1:		gkrellm-2.3.4-fix-link.patch
+Patch0:         gkrellm-2.3.2-wformat.patch
+Patch1:         gkrellm-2.3.4-fix-link.patch
+Patch2:         gkrellm-2.3.4-force-libsensor-test-result.patch
 BuildRequires:  gettext
 BuildRequires:  gtk+2-devel
 BuildRequires:  imagemagick
 BuildRequires:  openssl-devel
 BuildRequires:  libsm-devel
 BuildRequires:	libntlm-devel
+BuildRequires:  lm_sensors-devel
 BuildRoot:      %{_tmppath}/%{name}-%{version}
 
 %description
@@ -65,6 +67,7 @@ perl -pi -e "/PLUGINS_DIR/ and s|/lib/|/%{_lib}/|g" ./src/gkrellm.h ./server/gkr
 perl -pi -e "s|/lib/|/%{_lib}/|" Makefile
 %patch0 -p1 -b .wformat
 %patch1 -p0 -b .link
+%patch2 -p1 -b .libsensors
 
 %build
 %make INSTALLROOT=%{_prefix} \
