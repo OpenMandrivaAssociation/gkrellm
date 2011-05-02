@@ -1,6 +1,6 @@
 %define name        gkrellm
 %define version     2.3.5
-%define release     %mkrel 1
+%define release     %mkrel 2
 %define title       Gkrellm
 %define longtitle   A GTK-based monitoring app
 
@@ -159,8 +159,10 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %doc *.html
 %{_includedir}/gkrellm2
+%dir %{multiarch_includedir}/gkrellm2
+%{multiarch_includedir}/gkrellm2/gkrellm.h
+%{multiarch_includedir}/gkrellm2/gkrellmd.h
 %{_libdir}/pkgconfig/gkrellm.pc
-%multiarch %{_includedir}/multiarch-*/gkrellm2
 
 %files server
 %defattr(-,root,root)
