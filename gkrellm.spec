@@ -161,8 +161,7 @@ rm -rf %{buildroot}
 %doc *.html
 %{_includedir}/gkrellm2
 %dir %{multiarch_includedir}/gkrellm2
-%{multiarch_includedir}/gkrellm2/gkrellm.h
-%{multiarch_includedir}/gkrellm2/gkrellmd.h
+%{multiarch_includedir}/gkrellm2/*.h
 %{_libdir}/pkgconfig/gkrellm.pc
 
 %files server
