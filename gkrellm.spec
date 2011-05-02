@@ -115,6 +115,7 @@ install -d -m 755 %{buildroot}%{_initrddir}
 install -m 755 %{SOURCE5} %{buildroot}%{_initrddir}/gkrellmd
 
 %multiarch_includes %{buildroot}%{_includedir}/gkrellm2/gkrellm.h
+
 %multiarch_includes %{buildroot}%{_includedir}/gkrellm2/gkrellmd.h
 
 %{find_lang} %{name}
