@@ -1,0 +1,5 @@
+sources:
+  "gkrellm-2.3.5.tar.bz2:"	bcfc2efb5fd3f27e9bb703bda73f6a1d96b080df
+  "gkrellmd.init:"	4c126cbc28f4c750a91fef3b162e2e944a1c3edd
+  "gkrellm-pt.po:"	1c5c1498c43f18e8b98f83662dffd3e0f1097ec9
+  "gkrellm-themes.tar.bz2:"	25815859c7520c9b21458be3298465d0974c9e2d

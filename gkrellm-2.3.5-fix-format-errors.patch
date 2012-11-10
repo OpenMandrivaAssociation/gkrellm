@@ -1,0 +1,12 @@
+diff -Naur -x '*~' -x '*.rej' -x '*.orig' gkrellm-2.3.5/server/main.c gkrellm-2.3.5-fix-format-errors/server/main.c
+--- gkrellm-2.3.5/server/main.c	2010-10-02 18:13:29.000000000 +0200
++++ gkrellm-2.3.5-fix-format-errors/server/main.c	2010-10-11 10:43:43.000000000 +0200
+@@ -187,7 +187,7 @@
+ 	if (log_level & G_LOG_LEVEL_CRITICAL)
+ 		facility_priority = LOG_MAKEPRI(LOG_DAEMON, LOG_CRIT);
+ 
+-	syslog(facility_priority, message);
++	syslog(facility_priority, "%s", message);
+ #endif // defined(WIN32)
+ 	} // gkrellmd_syslog_log()
+ 
