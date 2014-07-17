@@ -1,13 +1,13 @@
 Name:		gkrellm
 Version:	2.3.5
-Release:	5
+Release:	6
 Summary:	Multiple stacked system monitors
 License:	GPLv3+
 Group:		Monitoring
 URL:		http://gkrellm.net
 Source0:	http://members.dslextreme.com/users/billw/gkrellm/%{name}-%{version}.tar.bz2
 Source1:	gkrellm-themes.tar.bz2
-Source2:	gkrellmd.init
+Source2:	gkrellmd.service
 Source3:	gkrellm-pt.po
 Patch0:		gkrellm-2.3.5-fix-format-errors.patch
 Patch2:		gkrellm-2.3.5-force-libsensor-test-result.patch
@@ -108,8 +108,8 @@ EOF
 install -d -m 755 %{buildroot}%{_sysconfdir}
 install -m 644 server/gkrellmd.conf %{buildroot}%{_sysconfdir}
 
-install -d -m 755 %{buildroot}%{_initrddir}
-install -m 755 %{SOURCE2} %{buildroot}%{_initrddir}/gkrellmd
+install -d -m 755 %{buildroot}%{_unitdir}
+install -m 755 %{SOURCE2} %{buildroot}%{_unitdir}/gkrellmd.service
 
 %multiarch_includes %{buildroot}%{_includedir}/gkrellm2/gkrellm.h
 
@@ -148,7 +148,7 @@ chmod 1777 %{buildroot}%{_localstatedir}/lock/gkrellm
 
 %files server
 %config(noreplace) %{_sysconfdir}/gkrellmd.conf
-%{_initrddir}/gkrellmd
+%{_unitdir}/gkrellmd.service
 %{_bindir}/gkrellmd
 %{_mandir}/man1/gkrellmd.1*
 
