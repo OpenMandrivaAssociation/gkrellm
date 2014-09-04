@@ -1,6 +1,6 @@
 Name:		gkrellm
 Version:	2.3.5
-Release:	6
+Release:	8
 Summary:	Multiple stacked system monitors
 License:	GPLv3+
 Group:		Monitoring
@@ -64,7 +64,6 @@ perl -pi -e "s|/lib/|/%{_lib}/|" Makefile
 
 %build
 %make INSTALLROOT=%{_prefix} \
-      CC=%{__cc} \
       INCLUDEDIR=%{_includedir} \
       CFLAGS="%{optflags}" \
       LDFLAGS="$(pkg-config --libs gmodule-2.0) %{ldflags}" \
@@ -96,7 +95,9 @@ install -d -m 755 %{buildroot}%{_datadir}/applications
 cat >  %{buildroot}%{_datadir}/applications/mandriva-%{name}.desktop << EOF
 [Desktop Entry]
 Name=Gkrellm
+Name[ru]=Gkrellm
 Comment=A GTK-based monitoring app
+Comment[ru]=Программа мониторинга ресурсов компьютера
 Exec=%{_bindir}/%{name}
 Icon=%{name}
 Terminal=false
@@ -121,11 +122,14 @@ install -m 755 %{SOURCE2} %{buildroot}%{_unitdir}/gkrellmd.service
 install -d -m 755 %{buildroot}%{_localstatedir}/lock/gkrellm
 chmod 1777 %{buildroot}%{_localstatedir}/lock/gkrellm
 
-%post server
-%_post_service gkrellmd
+%post
+%systemd_post %{name}d.service
 
-%preun server
-%_preun_service gkrellmd
+%preun
+%systemd_preun %{name}d.service
+
+%postun
+%systemd_postun_with_restart %{name}d.service
 
 %files -f %{name}.lang
 %doc COPYRIGHT Changelog INSTALL README *.html
@@ -151,3 +155,5 @@ chmod 1777 %{buildroot}%{_localstatedir}/lock/gkrellm
 %{_unitdir}/gkrellmd.service
 %{_bindir}/gkrellmd
 %{_mandir}/man1/gkrellmd.1*
+
+
