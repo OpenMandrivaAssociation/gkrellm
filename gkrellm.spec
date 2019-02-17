@@ -131,7 +131,7 @@ chmod 1777 %{buildroot}%{_localstatedir}/lock/gkrellm
 %doc *.html
 %{_includedir}/gkrellm2
 %{_libdir}/pkgconfig/gkrellm.pc
-%multiarch %{_includedir}/multiarch-*/gkrellm2
+#multiarch %{_includedir}/multiarch-*/gkrellm2
 
 %files server
 %config(noreplace) %{_sysconfdir}/gkrellmd.conf
