@@ -1,6 +1,6 @@
 Name:		gkrellm
-Version:	2.3.5
-Release:	9
+Version:	2.3.10
+Release:	1
 Summary:	Multiple stacked system monitors
 License:	GPLv3+
 Group:		Monitoring
@@ -9,8 +9,8 @@ Source0:	http://members.dslextreme.com/users/billw/gkrellm/%{name}-%{version}.ta
 Source1:	gkrellm-themes.tar.bz2
 Source2:	gkrellmd.service
 Source3:	gkrellm-pt.po
-Patch0:		gkrellm-2.3.5-fix-format-errors.patch
-Patch2:		gkrellm-2.3.5-force-libsensor-test-result.patch
+#Patch0:		gkrellm-2.3.5-fix-format-errors.patch
+#Patch2:		gkrellm-2.3.5-force-libsensor-test-result.patch
 BuildRequires:	gettext
 BuildRequires:	pkgconfig(gtk+-2.0)
 BuildRequires:	imagemagick
@@ -18,6 +18,7 @@ BuildRequires:	pkgconfig(openssl)
 BuildRequires:	pkgconfig(sm)
 BuildRequires:	pkgconfig(libntlm)
 BuildRequires:	lm_sensors-devel
+BuildRequires: libsystemd
 
 %description
 GKrellM charts SMP CPU, load, Disk, and all active net interfaces
@@ -59,23 +60,21 @@ done
 # make it lib64 aware
 perl -pi -e "/PLUGINS_DIR/ and s|/lib/|/%{_lib}/|g" ./src/gkrellm.h ./server/gkrellmd.h
 perl -pi -e "s|/lib/|/%{_lib}/|" Makefile
-%patch0 -p1 -b .wformat
-%patch2 -p1 -b .libsensors
+#patch0 -p1 -b .wformat
+#patch2 -p1 -b .libsensors
 
 %build
 %make INSTALLROOT=%{_prefix} \
       INCLUDEDIR=%{_includedir} \
-      CFLAGS="%{optflags}" \
-      LDFLAGS="$(pkg-config --libs gmodule-2.0) %{ldflags}" \
+      CFLAGS="%optflags" \
+      LDFLAGS="%ldflags" \
       LOCALEDIR=%{_datadir}/locale
 
-#      LIBS="-lgtk-x11-2.0 -lgdk-x11-2.0 -lglib-2.0 -lgmodule-2.0"
-
 %install
-mkdir -p %{buildroot}%{_bindir}
+mkdir -p %{buildroot}/%{_bindir}
 make install \
     INSTALLROOT=%{buildroot}%{_prefix} \
-    INSTALLDIR=%{buildroot}%{_bindir} \
+    INSTALLDIR=%{buildroot}/%{_bindir} \
     INCLUDEDIR=%{buildroot}%{_includedir} \
     MANDIR=%{buildroot}%{_mandir}/man1 \
     LOCALEDIR=%{buildroot}%{_datadir}/locale \
@@ -92,12 +91,10 @@ mkdir -p %{buildroot}%{_datadir}/%{name}2/themes
 cp -av gkrellm-themes/* %{buildroot}%{_datadir}/%{name}2/themes
 
 install -d -m 755 %{buildroot}%{_datadir}/applications
-cat >  %{buildroot}%{_datadir}/applications/mandriva-%{name}.desktop << EOF
+cat >  %{buildroot}%{_datadir}/applications/%{_real_vendor}-%{name}.desktop << EOF
 [Desktop Entry]
 Name=Gkrellm
-Name[ru]=Gkrellm
 Comment=A GTK-based monitoring app
-Comment[ru]=Программа мониторинга ресурсов компьютера
 Exec=%{_bindir}/%{name}
 Icon=%{name}
 Terminal=false
@@ -106,15 +103,11 @@ StartupNotify=true
 Categories=GTK;System;Monitor;
 EOF
 
-install -d -m 755 %{buildroot}%{_sysconfdir}
-install -m 644 server/gkrellmd.conf %{buildroot}%{_sysconfdir}
+install -D -p -m 0644 server/gkrellmd.conf %{buildroot}%{_sysconfdir}/gkrellmd.conf
+install -D -p -m 0644 %{SOURCE2} %{buildroot}%{_unitdir}/gkrellmd.service
 
-install -d -m 755 %{buildroot}%{_unitdir}
-install -m 755 %{SOURCE2} %{buildroot}%{_unitdir}/gkrellmd.service
-
-%multiarch_includes %{buildroot}%{_includedir}/gkrellm2/gkrellm.h
-
-%multiarch_includes %{buildroot}%{_includedir}/gkrellm2/gkrellmd.h
+#multiarch_includes %{buildroot}%{_includedir}/gkrellm2/gkrellm.h
+#multiarch_includes %{buildroot}%{_includedir}/gkrellm2/gkrellmd.h
 
 %{find_lang} %{name}
 
@@ -122,38 +115,26 @@ install -m 755 %{SOURCE2} %{buildroot}%{_unitdir}/gkrellmd.service
 install -d -m 755 %{buildroot}%{_localstatedir}/lock/gkrellm
 chmod 1777 %{buildroot}%{_localstatedir}/lock/gkrellm
 
-%post
-%systemd_post %{name}d.service
-
-%preun
-%systemd_preun %{name}d.service
-
-%postun
-%systemd_postun_with_restart %{name}d.service
 
 %files -f %{name}.lang
 %doc COPYRIGHT Changelog INSTALL README *.html
 %{_bindir}/gkrellm
-%{_datadir}/applications/mandriva-%{name}.desktop
+%{_datadir}/applications/%{_real_vendor}-%{name}.desktop
 %{_iconsdir}/gkrellm.png
 %{_liconsdir}/gkrellm.png
 %{_miconsdir}/gkrellm.png
 %{_mandir}/man1/gkrellm.1*
 %{_libdir}/gkrellm2
-%{_datadir}/gkrellm2
-%{_localstatedir}/lock/gkrellm
+%{_datadir}/gkrellm2/
 
 %files devel
 %doc *.html
-%{_includedir}/gkrellm2/
-%dir %{multiarch_includedir}/gkrellm2
-%{multiarch_includedir}/gkrellm2/*.h
+%{_includedir}/gkrellm2
 %{_libdir}/pkgconfig/gkrellm.pc
+#multiarch %{_includedir}/multiarch-*/gkrellm2
 
 %files server
 %config(noreplace) %{_sysconfdir}/gkrellmd.conf
 %{_unitdir}/gkrellmd.service
 %{_bindir}/gkrellmd
 %{_mandir}/man1/gkrellmd.1*
-
-
