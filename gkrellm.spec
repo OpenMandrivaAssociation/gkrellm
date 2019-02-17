@@ -108,7 +108,7 @@ install -D -p -m 0644 %{SOURCE2} %{buildroot}%{_unitdir}/gkrellmd.service
 %multiarch_includes %{buildroot}%{_includedir}/gkrellm2/gkrellm.h
 %multiarch_includes %{buildroot}%{_includedir}/gkrellm2/gkrellmd.h
 
-%{find_lang} %{name}
+#{find_lang} %{name}
 
 # lock dir
 install -d -m 755 %{buildroot}%{_localstatedir}/lock/gkrellm
