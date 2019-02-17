@@ -106,8 +106,8 @@ EOF
 install -D -p -m 0644 server/gkrellmd.conf %{buildroot}%{_sysconfdir}/gkrellmd.conf
 install -D -p -m 0644 %{SOURCE2} %{buildroot}%{_unitdir}/gkrellmd.service
 
-%multiarch_includes %{buildroot}%{_includedir}/gkrellm2/gkrellm.h
-%multiarch_includes %{buildroot}%{_includedir}/gkrellm2/gkrellmd.h
+#multiarch_includes %{buildroot}%{_includedir}/gkrellm2/gkrellm.h
+#multiarch_includes %{buildroot}%{_includedir}/gkrellm2/gkrellmd.h
 
 %{find_lang} %{name}
 
