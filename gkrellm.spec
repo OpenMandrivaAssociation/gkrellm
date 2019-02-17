@@ -59,8 +59,8 @@ done
 # make it lib64 aware
 perl -pi -e "/PLUGINS_DIR/ and s|/lib/|/%{_lib}/|g" ./src/gkrellm.h ./server/gkrellmd.h
 perl -pi -e "s|/lib/|/%{_lib}/|" Makefile
-%patch0 -p1 -b .wformat
-%patch2 -p1 -b .libsensors
+#patch0 -p1 -b .wformat
+#patch2 -p1 -b .libsensors
 
 %build
 %make INSTALLROOT=%{_prefix} \
