@@ -18,6 +18,7 @@ BuildRequires:	pkgconfig(openssl)
 BuildRequires:	pkgconfig(sm)
 BuildRequires:	pkgconfig(libntlm)
 BuildRequires:	lm_sensors-devel
+BuildRequires: libsystemd
 
 %description
 GKrellM charts SMP CPU, load, Disk, and all active net interfaces
@@ -108,7 +109,7 @@ install -D -p -m 0644 %{SOURCE2} %{buildroot}%{_unitdir}/gkrellmd.service
 %multiarch_includes %{buildroot}%{_includedir}/gkrellm2/gkrellm.h
 %multiarch_includes %{buildroot}%{_includedir}/gkrellm2/gkrellmd.h
 
-#{find_lang} %{name}
+%{find_lang} %{name}
 
 # lock dir
 install -d -m 755 %{buildroot}%{_localstatedir}/lock/gkrellm
