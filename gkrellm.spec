@@ -103,7 +103,7 @@ Categories=GTK;System;Monitor;
 EOF
 
 install -D -p -m 0644 server/gkrellmd.conf %{buildroot}%{_sysconfdir}/gkrellmd.conf
-install -D -p -m 0644 %{SOURCE6} %{buildroot}%{_unitdir}/gkrellmd.service
+install -D -p -m 0644 %{SOURCE2} %{buildroot}%{_unitdir}/gkrellmd.service
 
 %multiarch_includes %{buildroot}%{_includedir}/gkrellm2/gkrellm.h
 %multiarch_includes %{buildroot}%{_includedir}/gkrellm2/gkrellmd.h
