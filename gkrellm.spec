@@ -1,11 +1,12 @@
 Name:		gkrellm
-Version:	2.3.10
-Release:	2
+Version:	2.3.11
+Release:	1
 Summary:	Multiple stacked system monitors
 License:	GPLv3+
 Group:		Monitoring
 URL:		http://gkrellm.net
-Source0:	http://members.dslextreme.com/users/billw/gkrellm/%{name}-%{version}.tar.bz2
+Source0: http://gkrellm.srcbox.net/releases/gkrellm-%{version}.tar.bz2
+#Source0:	http://members.dslextreme.com/users/billw/gkrellm/%{name}-%{version}.tar.bz2
 Source1:	gkrellm-themes.tar.bz2
 Source2:	gkrellmd.service
 Source3:	gkrellm-pt.po
