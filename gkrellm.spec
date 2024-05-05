@@ -19,6 +19,7 @@ BuildRequires:	pkgconfig(openssl)
 BuildRequires:	pkgconfig(sm)
 BuildRequires:	pkgconfig(libntlm)
 BuildRequires:	lm_sensors-devel
+BuildRequires:	locales-extra-charsets
 
 %description
 GKrellM charts SMP CPU, load, Disk, and all active net interfaces
