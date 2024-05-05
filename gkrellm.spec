@@ -1,11 +1,11 @@
 Name:		gkrellm
 Version:	2.3.11
-Release:	1
+Release:	2
 Summary:	Multiple stacked system monitors
 License:	GPLv3+
 Group:		Monitoring
-URL:		http://gkrellm.net
-Source0: http://gkrellm.srcbox.net/releases/gkrellm-%{version}.tar.bz2
+URL:		https://gkrellm.srcbox.net/
+Source0:	https://gkrellm.srcbox.net/releases/gkrellm-%{version}.tar.bz2
 #Source0:	http://members.dslextreme.com/users/billw/gkrellm/%{name}-%{version}.tar.bz2
 Source1:	gkrellm-themes.tar.bz2
 Source2:	gkrellmd.service
@@ -19,7 +19,6 @@ BuildRequires:	pkgconfig(openssl)
 BuildRequires:	pkgconfig(sm)
 BuildRequires:	pkgconfig(libntlm)
 BuildRequires:	lm_sensors-devel
-BuildRequires: libsystemd
 
 %description
 GKrellM charts SMP CPU, load, Disk, and all active net interfaces
@@ -33,6 +32,10 @@ Additional features are:
   * LED indicators for the net interfaces.
   * A gui popup for configuration of chart sizes and resolutions.
 
+THIS PACKAGE IS CONSIDERED DEPRECATED BECAUSE IT HAS BEEN ABANDONED
+UPSTREAM. IT MAY BE REMOVED IN A FUTURE RELEASE WITHOUT FURTHER NOTICE.
+IT IS RECOMMENDED TO USE AN ALTERNATIVE, SUCH AS plasma6-systemmonitor
+
 %package devel
 Summary:	Include files for gkrellm
 Group:		Development/Other
@@ -40,6 +43,10 @@ Requires:	%{name} = %{version}-%{release}
 
 %description devel
 gkrellm header files for gkrellm development and plugin support.
+
+THIS PACKAGE IS CONSIDERED DEPRECATED BECAUSE IT HAS BEEN ABANDONED
+UPSTREAM. IT MAY BE REMOVED IN A FUTURE RELEASE WITHOUT FURTHER NOTICE.
+IT IS RECOMMENDED TO USE AN ALTERNATIVE, SUCH AS plasma6-systemmonitor
 
 %package server
 Summary:	Server component for gkrellm
@@ -50,6 +57,10 @@ Requires(preun): rpm-helper
 %description server
 The server component allows you to monitor a server remotely from 
 a client running gkrellm, without installing gkrellm on the server.
+
+THIS PACKAGE IS CONSIDERED DEPRECATED BECAUSE IT HAS BEEN ABANDONED
+UPSTREAM. IT MAY BE REMOVED IN A FUTURE RELEASE WITHOUT FURTHER NOTICE.
+IT IS RECOMMENDED TO USE AN ALTERNATIVE, SUCH AS plasma6-systemmonitor
 
 %prep
 %setup -q
