@@ -12,6 +12,7 @@ Source2:	gkrellmd.service
 Source3:	gkrellm-pt.po
 #Patch0:		gkrellm-2.3.5-fix-format-errors.patch
 #Patch2:		gkrellm-2.3.5-force-libsensor-test-result.patch
+BuildRequires:	make
 BuildRequires:	gettext
 BuildRequires:	pkgconfig(gtk+-2.0)
 BuildRequires:	imagemagick
