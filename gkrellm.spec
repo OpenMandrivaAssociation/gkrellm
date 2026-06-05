@@ -1,6 +1,6 @@
 Name:		gkrellm
 Version:	2.3.11
-Release:	2
+Release:	3
 Summary:	Multiple stacked system monitors
 License:	GPLv3+
 Group:		Monitoring
